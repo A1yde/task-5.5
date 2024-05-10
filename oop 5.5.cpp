@@ -4,7 +4,7 @@
 using namespace std;
 
 void out(vector<vector<int>> vec);
-void findpos(vector<vector<int>> vec);
+void findpos(vector<vector<int>> vec,int cols, int rows);
 
 int main()
 {
@@ -12,7 +12,7 @@ int main()
 	cout << "Enter matrix rows:";
 	cin >> rows;
 	cout << "Enter matrix cols:";
-	cin >> cols;
+		cin >> cols;
 
 	vector<vector<int>> vec;
 	for (int i = 0; i < rows; i++)
@@ -29,7 +29,7 @@ int main()
 
 	}
 	out(vec);
-	findpos(vec);
+	findpos(vec,rows,rows);
 
 	return 0;
 
@@ -46,29 +46,26 @@ void out(vector<vector<int>> vec)
 	cout << endl;
 }
 
-void findpos(vector<vector<int>> vec)
+void findpos(vector<vector<int>> vec,int cols,int rows)
 {
-	for (int i = 0; i < vec.size(); i++)
+	for (int i = 0; i < rows; i++)
 	{
 		int min_val = vec[i][0];
-		int col = 0;
+		int min_col = 0;
 
-		for (int j = 1; j <vec[i].size(); j++)
+		for (int j = 1; j <cols; j++)
 		{
 			if (vec[i][j] < min_val)
 			{
 				min_val = vec[i][j];
-				col = j;
+				min_col = j;
 			}
 		}
-
-
-
-
+	
 		bool point = true;
-		for (int k = 0; k < vec.size(); k++)
+		for (int k = 0; k < rows; k++)
 		{
-			if (vec[k][col] < min_val)
+			if (vec[k][min_col] > min_val)
 			{
 				point = false;
 				break;
@@ -78,7 +75,7 @@ void findpos(vector<vector<int>> vec)
 
 		if (point)
 		{
-			cout << "Saddle point found at (" << i << ", " << col << "): " << min_val << endl;
+			cout << "Saddle point found at (" << i << ", " << min_col << "): " << min_val << endl;
 		}
 	}
 }
